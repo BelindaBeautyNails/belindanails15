@@ -1,0 +1,2180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Belinda Beauty Nails</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js">
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Quicksand', system-ui, sans-serif;
+        }
+
+        body {
+            background: #f5efe8;
+            padding: 1.5rem 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .main-container {
+            max-width: 1100px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 2.5rem;
+            padding: 2rem 2.2rem;
+            box-shadow: 0 25px 60px rgba(92, 30, 46, 0.12);
+            border: 1px solid #e8ddd2;
+        }
+
+        .header {
+            text-align: center;
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.8rem;
+            border-bottom: 2px solid #dccfc2;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #4a1c2a;
+            letter-spacing: 1px;
+        }
+
+        .header h1 span {
+            color: #b8956a;
+            font-weight: 300;
+        }
+
+        .header .tagline {
+            display: inline-block;
+            background: #f0e8e0;
+            padding: 0.2rem 2rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            color: #4a1c2a;
+            font-weight: 500;
+            border: 1px solid #dccfc2;
+            margin-top: 0.3rem;
+        }
+
+        .admin-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+
+        .admin-toggle button {
+            background: #4a1c2a;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.8rem;
+            box-shadow: 0 4px 15px rgba(74, 28, 42, 0.3);
+            transition: 0.2s;
+        }
+
+        .admin-toggle button:hover {
+            transform: scale(1.05);
+            background: #3d1420;
+        }
+
+        .admin-toggle button.active {
+            background: #b8956a;
+        }
+
+        .modo-cliente {
+            display: block;
+        }
+
+        .modo-admin {
+            display: none;
+        }
+
+        .modo-admin.active {
+            display: block;
+        }
+
+        .modo-cliente.oculto {
+            display: none;
+        }
+
+        .section {
+            background: #fcfaf8;
+            border-radius: 2rem;
+            padding: 1.5rem 1.8rem;
+            margin-bottom: 1.8rem;
+            border: 1px solid #e8ddd2;
+            box-shadow: 0 4px 12px rgba(92, 30, 46, 0.03);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #4a1c2a;
+            margin-bottom: 1.2rem;
+            border-left: 6px solid #b8956a;
+            padding-left: 1rem;
+        }
+
+        .section-title span {
+            font-size: 1.6rem;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .grid-3col {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .grid-4col {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.8rem;
+        }
+
+        .tip-card {
+            background: white;
+            border-radius: 1.2rem;
+            padding: 0.6rem 0.3rem;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .tip-card:hover {
+            border-color: #dccfc2;
+            transform: translateY(-2px);
+        }
+
+        .tip-card.selected {
+            border-color: #4a1c2a;
+            background: #f8f0ea;
+            box-shadow: 0 0 0 2px #b8956a;
+        }
+
+        .tip-card svg {
+            display: block;
+            margin: 0 auto 0.2rem;
+            width: 40px;
+            height: 40px;
+        }
+
+        .tip-card .label {
+            font-size: 0.75rem;
+            color: #3d2a24;
+            font-weight: 600;
+        }
+
+        .tech-option {
+            background: white;
+            border-radius: 1rem;
+            padding: 0.6rem 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            border: 1px solid #e4dbd2;
+            transition: all 0.15s ease;
+            cursor: pointer;
+        }
+
+        .tech-option:hover {
+            border-color: #b8956a;
+        }
+
+        .tech-option.selected {
+            border-color: #4a1c2a;
+            background: #f8f0ea;
+            box-shadow: 0 0 0 2px #dccfc2;
+        }
+
+        .tech-option .emoji-big {
+            font-size: 1.5rem;
+        }
+
+        .tech-option .info {
+            flex: 1;
+        }
+
+        .tech-option .info .name {
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .tech-option .info .price {
+            color: #4a1c2a;
+            font-weight: 600;
+            margin-left: 0.2rem;
+            font-size: 0.8rem;
+        }
+
+        .price-slider {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.5rem 1rem;
+            background: white;
+            padding: 0.6rem 1rem;
+            border-radius: 2rem;
+            border: 1px solid #e4dbd2;
+        }
+
+        .price-slider label {
+            font-weight: 600;
+            min-width: 60px;
+            color: #3d2a24;
+            font-size: 0.9rem;
+        }
+
+        .price-slider input[type="range"] {
+            flex: 1;
+            min-width: 100px;
+            accent-color: #4a1c2a;
+            height: 4px;
+        }
+
+        .price-slider .value {
+            background: #4a1c2a;
+            color: white;
+            padding: 0.05rem 0.7rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .deco-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 1.5rem;
+            border: 1px solid #e4dbd2;
+            gap: 0.3rem;
+            flex-wrap: wrap;
+        }
+
+        .deco-item .info {
+            flex: 1;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .deco-item .price {
+            color: #4a1c2a;
+            font-weight: 600;
+            font-size: 0.7rem;
+        }
+
+        .deco-item .counter {
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+        }
+
+        .deco-item .counter button {
+            background: #f0ebe4;
+            border: none;
+            border-radius: 30px;
+            width: 20px;
+            height: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.1s;
+            color: #2c1e1a;
+        }
+
+        .deco-item .counter button:hover {
+            background: #dccfc2;
+        }
+
+        .deco-item .counter span {
+            min-width: 18px;
+            text-align: center;
+            font-weight: 600;
+            color: #4a1c2a;
+            font-size: 0.8rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 60px;
+            border: none;
+            background: #dccfc2;
+            color: #2c1e1a;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.85rem;
+        }
+
+        .btn:hover {
+            background: #cbb392;
+            transform: scale(0.97);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #4a1c2a;
+            color: #4a1c2a;
+        }
+
+        .btn-outline:hover {
+            background: #4a1c2a;
+            color: white;
+        }
+
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+            font-weight: 600;
+            padding: 0.7rem 2rem;
+            border-radius: 60px;
+            border: none;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .whatsapp-btn:hover {
+            background: #1da851;
+            transform: scale(0.97);
+        }
+
+        .form-group {
+            margin-bottom: 0.8rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #3d2a24;
+            margin-bottom: 0.15rem;
+            font-size: 0.85rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.5rem 1rem;
+            border-radius: 60px;
+            border: 1px solid #ddd2c8;
+            background: white;
+            font-size: 0.85rem;
+            font-family: 'Quicksand', sans-serif;
+            transition: 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: 2px solid #b8956a;
+            border-color: transparent;
+        }
+
+        .form-group input[readonly] {
+            background: #f5efe8;
+            color: #4a1c2a;
+            font-weight: 500;
+        }
+
+        .calendar-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.6rem;
+        }
+
+        .calendar-nav button {
+            background: none;
+            border: 1px solid #dccfc2;
+            border-radius: 30px;
+            padding: 0.1rem 0.6rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.1s;
+            color: #4a1c2a;
+        }
+
+        .calendar-nav button:hover {
+            background: #f0ebe4;
+        }
+
+        .calendar-nav .month-label {
+            font-weight: 600;
+            color: #4a1c2a;
+            font-size: 0.95rem;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            margin: 0.5rem 0;
+        }
+
+        .calendar-grid .day-name {
+            text-align: center;
+            font-weight: 600;
+            color: #4a1c2a;
+            font-size: 0.7rem;
+            padding: 0.2rem 0;
+        }
+
+        .calendar-grid .day-cell {
+            text-align: center;
+            padding: 0.4rem 0;
+            border-radius: 30px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.1s;
+            font-size: 0.8rem;
+            background: #f5f0ea;
+            color: #2c1e1a;
+        }
+
+        .calendar-grid .day-cell:hover {
+            background: #e4dbd2;
+        }
+
+        .calendar-grid .day-cell.selected {
+            background: #4a1c2a;
+            color: white;
+            font-weight: 600;
+        }
+
+        .calendar-grid .day-cell.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .calendar-grid .day-cell.available {
+            background: #dde8d5;
+            color: #1a3a1a;
+        }
+
+        .hours-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin: 0.5rem 0;
+        }
+
+        .hour-btn {
+            padding: 0.3rem 0.8rem;
+            border-radius: 30px;
+            border: 1px solid #dccfc2;
+            background: white;
+            cursor: pointer;
+            transition: all 0.1s;
+            font-size: 0.8rem;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        .hour-btn:hover {
+            background: #f0ebe4;
+        }
+
+        .hour-btn.selected {
+            background: #4a1c2a;
+            color: white;
+            border-color: #4a1c2a;
+        }
+
+        .hour-btn.booked {
+            background: #e0d6cf;
+            color: #6b5a52;
+            text-decoration: line-through;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .bank-info {
+            background: #f8f0ea;
+            border-radius: 1.2rem;
+            padding: 1rem 1.5rem;
+            border: 2px solid #b8956a;
+            margin: 0.5rem 0 1.2rem;
+        }
+
+        .bank-info h4 {
+            color: #4a1c2a;
+            margin-bottom: 0.3rem;
+            font-size: 1rem;
+        }
+
+        .bank-info p {
+            margin: 0.2rem 0;
+            font-size: 0.85rem;
+        }
+
+        .bank-info .highlight {
+            color: #4a1c2a;
+            font-weight: 700;
+            background: #f0e8e0;
+            padding: 0.05rem 0.5rem;
+            border-radius: 20px;
+        }
+
+        .file-upload {
+            border: 2px dashed #dccfc2;
+            border-radius: 1.2rem;
+            padding: 1rem;
+            text-align: center;
+            background: #fcfaf8;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .file-upload:hover {
+            border-color: #b8956a;
+            background: #f5efe8;
+        }
+
+        .file-upload input[type="file"] {
+            display: none;
+        }
+
+        .file-upload .preview {
+            max-width: 150px;
+            max-height: 120px;
+            border-radius: 0.8rem;
+            margin-top: 0.3rem;
+            border: 2px solid #b8956a;
+        }
+
+        .confirm-box {
+            margin: 1rem 0;
+            padding: 1rem 1.5rem;
+            background: #fcf6f0;
+            border-radius: 1.5rem;
+            border: 1px solid #dccfc2;
+        }
+
+        .confirm-box p {
+            margin: 0.15rem 0;
+            font-size: 0.85rem;
+        }
+
+        .toast {
+            background: #4a1c2a;
+            color: white;
+            padding: 0.4rem 1.2rem;
+            border-radius: 60px;
+            display: inline-block;
+            margin-top: 0.3rem;
+            font-weight: 500;
+            font-size: 0.8rem;
+        }
+
+        .flex {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .text-muted {
+            color: #6b5a52;
+        }
+
+        .factura-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(44, 30, 26, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+        }
+
+        .factura-overlay.active {
+            display: flex;
+        }
+
+        .factura {
+            background: white;
+            max-width: 480px;
+            width: 100%;
+            border-radius: 1.8rem;
+            padding: 1.8rem;
+            box-shadow: 0 30px 80px rgba(92, 30, 46, 0.3);
+            border: 2px solid #dccfc2;
+            animation: fade 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .factura-header {
+            text-align: center;
+            border-bottom: 2px solid #dccfc2;
+            padding-bottom: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .factura-header h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #4a1c2a;
+            letter-spacing: 1px;
+        }
+
+        .factura-header h2 span {
+            color: #b8956a;
+            font-weight: 300;
+        }
+
+        .factura-header .factura-num {
+            font-size: 0.75rem;
+            color: #6b5a52;
+            background: #f0ebe4;
+            padding: 0.15rem 0.8rem;
+            border-radius: 30px;
+            display: inline-block;
+            margin-top: 0.2rem;
+        }
+
+        .factura-body .row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.3rem 0;
+            border-bottom: 1px solid #f0ebe4;
+            font-size: 0.85rem;
+        }
+
+        .factura-body .row .label {
+            color: #6b5a52;
+            font-weight: 400;
+        }
+
+        .factura-body .row .value {
+            color: #2c1e1a;
+            font-weight: 500;
+            text-align: right;
+        }
+
+        .factura-body .row.total {
+            border-bottom: none;
+            border-top: 3px solid #dccfc2;
+            margin-top: 0.3rem;
+            padding-top: 0.6rem;
+            font-size: 1.2rem;
+        }
+
+        .factura-body .row.total .value {
+            color: #4a1c2a;
+            font-weight: 700;
+        }
+
+        .factura-body .row.anticipo .value {
+            color: #b8956a;
+            font-weight: 700;
+        }
+
+        .factura-body .comprobante-img {
+            max-width: 100%;
+            max-height: 180px;
+            border-radius: 0.8rem;
+            margin: 0.3rem 0;
+            border: 2px solid #dccfc2;
+        }
+
+        .factura-footer {
+            text-align: center;
+            margin-top: 1rem;
+            padding-top: 0.8rem;
+            border-top: 2px solid #dccfc2;
+            font-size: 0.75rem;
+            color: #6b5a52;
+        }
+
+        .factura-footer .tagline {
+            color: #b8956a;
+            font-weight: 600;
+        }
+
+        .factura-close-btn {
+            background: #4a1c2a;
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 60px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-top: 0.4rem;
+            transition: 0.2s;
+            width: 100%;
+            font-weight: 600;
+        }
+
+        .factura-close-btn:hover {
+            background: #3d1420;
+            transform: scale(0.97);
+        }
+
+        .factura-foto-btn {
+            background: #4a1c2a;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 60px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-top: 0.4rem;
+            transition: 0.2s;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            font-weight: 600;
+        }
+
+        .factura-foto-btn:hover {
+            background: #3d1420;
+            transform: scale(0.97);
+        }
+
+        .factura-loading {
+            display: none;
+            text-align: center;
+            padding: 0.3rem;
+            color: #4a1c2a;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .factura-loading.active {
+            display: block;
+        }
+
+        @keyframes fade {
+            from {
+                opacity: 0.4;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 1.2rem;
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid #e8ddd2;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: all 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(92, 30, 46, 0.08);
+        }
+
+        .stat-card .number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #4a1c2a;
+            display: block;
+        }
+
+        .stat-card .label {
+            font-size: 0.8rem;
+            color: #6b5a52;
+            font-weight: 500;
+        }
+
+        .stat-card .icon {
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .stat-card.gold {
+            border-color: #b8956a;
+            background: #fcf8f2;
+        }
+
+        .stat-card.gold .number {
+            color: #b8956a;
+        }
+
+        .stat-card.dark {
+            border-color: #4a1c2a;
+            background: #f8f0ea;
+        }
+
+        .stat-card.dark .number {
+            color: #4a1c2a;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            max-height: 400px;
+            overflow-y: auto;
+            border-radius: 1.2rem;
+            border: 1px solid #e8ddd2;
+        }
+
+        table {
+            width: 100%;
+            font-size: 0.8rem;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        thead {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        th {
+            text-align: left;
+            padding: 0.5rem 0.8rem;
+            background: #f0ebe4;
+            color: #4a1c2a;
+            font-weight: 600;
+            border-bottom: 2px solid #dccfc2;
+            font-size: 0.75rem;
+        }
+
+        td {
+            padding: 0.5rem 0.8rem;
+            border-bottom: 1px solid #f0ebe4;
+            vertical-align: middle;
+            font-size: 0.75rem;
+        }
+
+        tr:hover td {
+            background: #fcfaf8;
+        }
+
+        .btn-danger {
+            background: #c0392b;
+            color: white;
+            border: none;
+            padding: 0.2rem 0.6rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: 600;
+        }
+
+        .btn-danger:hover {
+            background: #e74c3c;
+            transform: scale(0.95);
+        }
+
+        .btn-danger-large {
+            background: #c0392b;
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 60px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.85rem;
+        }
+
+        .btn-danger-large:hover {
+            background: #e74c3c;
+            transform: scale(0.97);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.15rem 0.6rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .badge-anticipo {
+            background: #f0e8e0;
+            color: #4a1c2a;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: #6b5a52;
+        }
+
+        .empty-state .emoji {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .empty-state p {
+            font-size: 1rem;
+        }
+
+        .actions-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .comprobante-thumb {
+            max-width: 40px;
+            max-height: 40px;
+            border-radius: 6px;
+            border: 1px solid #dccfc2;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .comprobante-thumb:hover {
+            transform: scale(1.1);
+            border-color: #4a1c2a;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(44, 30, 26, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 450px;
+            width: 100%;
+            border-radius: 1.8rem;
+            padding: 1.8rem;
+            border: 2px solid #dccfc2;
+            animation: fade 0.3s ease;
+        }
+
+        .modal-content h3 {
+            color: #4a1c2a;
+            margin-bottom: 0.8rem;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .modal-content img {
+            width: 100%;
+            border-radius: 0.8rem;
+            border: 2px solid #e8ddd2;
+        }
+
+        .modal-content .close-btn {
+            background: #4a1c2a;
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 60px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-top: 0.8rem;
+            transition: 0.2s;
+            width: 100%;
+            font-weight: 600;
+        }
+
+        .modal-content .close-btn:hover {
+            background: #3d1420;
+            transform: scale(0.97);
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .admin-header .title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #4a1c2a;
+        }
+
+        @media (max-width: 820px) {
+            .main-container {
+                padding: 1.2rem;
+            }
+            .grid-2col,
+            .grid-3col {
+                grid-template-columns: 1fr;
+            }
+            .grid-4col {
+                grid-template-columns: 1fr 1fr;
+            }
+            .header h1 {
+                font-size: 1.6rem;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-container {
+                padding: 0.8rem;
+                border-radius: 1.2rem;
+            }
+            .section {
+                padding: 1rem;
+            }
+            .grid-4col {
+                grid-template-columns: 1fr 1fr;
+            }
+            .header h1 {
+                font-size: 1.3rem;
+            }
+            .whatsapp-btn {
+                font-size: 0.85rem;
+                padding: 0.6rem 1.2rem;
+            }
+            .bank-info {
+                padding: 0.8rem;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.6rem;
+            }
+            .stat-card .number {
+                font-size: 1.5rem;
+            }
+            .admin-toggle {
+                bottom: 10px;
+                right: 10px;
+            }
+            .admin-toggle button {
+                font-size: 0.7rem;
+                padding: 0.4rem 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+
+        <div class="header">
+            <h1>Bienvenida a <span>Belinda</span> Beauty Nails</h1>
+            <div class="tagline">✨ Menos prisa, más perfección ✨</div>
+        </div>
+
+        <!-- ===== MODO CLIENTE ===== -->
+        <div id="modoCliente" class="modo-cliente">
+
+            <div class="section">
+                <div class="section-title"><span>💅</span> Elige tu servicio</div>
+
+                <div class="grid-2col" style="margin-bottom:1.2rem;">
+                    <div>
+                        <h3 style="font-weight:600; margin-bottom:0.5rem; color:#4a1c2a; font-size:0.95rem;">🔧 Técnica</h3>
+                        <div id="tecnicas-container" class="grid-2col" style="gap:0.5rem;"></div>
+                    </div>
+                    <div>
+                        <h3 style="font-weight:600; margin-bottom:0.5rem; color:#4a1c2a; font-size:0.95rem;">📏 Largo (0 = sin extensión)</h3>
+                        <div id="largo-slider-container">
+                            <div class="price-slider">
+                                <label>Largo</label>
+                                <input type="range" id="largoSlider" min="0" max="8" value="3" step="1" />
+                                <span class="value" id="largoValue">3</span>
+                            </div>
+                            <div style="margin-top:0.3rem; font-size:0.85rem; color:#4a1c2a; font-weight:500;" id="largoPriceDisplay">+ $23</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom:1.2rem;">
+                    <h3 style="font-weight:600; margin-bottom:0.5rem; color:#4a1c2a; font-size:0.95rem;">🖌️ Punta de salón</h3>
+                    <div class="grid-4col" id="tips-container"></div>
+                </div>
+
+                <div style="margin-bottom:1.2rem;">
+                    <h3 style="font-weight:600; margin-bottom:0.5rem; color:#4a1c2a; font-size:0.95rem;">💧 Sistema en Gel</h3>
+                    <div class="grid-2col" id="gel-container"></div>
+                </div>
+
+                <div style="margin-bottom:1.2rem;">
+                    <h3 style="font-weight:600; margin-bottom:0.5rem; color:#4a1c2a; font-size:0.95rem;">✨ Decoraciones (por uña)</h3>
+                    <div class="grid-3col" id="deco-container"></div>
+                </div>
+
+                <div class="flex" style="justify-content:space-between; flex-wrap:wrap; gap:0.5rem;">
+                    <div>
+                        <label style="font-weight:600; color:#4a1c2a; font-size:0.85rem;">🎨 Tonos extra (+$2 c/u)</label>
+                        <input type="number" id="tonosExtra" min="0" value="0" style="width:60px; padding:0.2rem 0.5rem; border-radius:30px; border:1px solid #ddd; font-family:'Quicksand',sans-serif; font-size:0.85rem;" />
+                    </div>
+                    <div>
+                        <label style="font-weight:600; color:#4a1c2a; font-size:0.85rem;">🔄 Cambio de forma (+$3)</label>
+                        <input type="checkbox" id="cambioForma" style="transform:scale(1.2); margin-left:0.3rem;" />
+                    </div>
+                    <div>
+                        <label style="font-weight:600; color:#4a1c2a; font-size:0.85rem;">🧹 Retiro / Reposición</label>
+                        <select id="retiroOpcion" style="padding:0.2rem 0.8rem; border-radius:30px; border:1px solid #ddd; font-family:'Quicksand',sans-serif; font-size:0.8rem;">
+                            <option value="0">Ninguno</option>
+                            <option value="acrilico_retiro">Retiro acrílico ($2/uña)</option>
+                            <option value="gel_retiro">Retiro gel semipermanente ($1/uña)</option>
+                            <option value="acrilico_repos">Reposición acrílico ($4/uña)</option>
+                            <option value="gel_repos">Reposición gel semipermanente ($3/uña)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="margin-top:1.2rem; padding:0.8rem 1.5rem; background: #f0ebe4; border-radius: 60px; display:flex; justify-content:space-between; flex-wrap:wrap; align-items:center;">
+                    <span style="font-size:1rem; font-weight:500; color:#4a1c2a;">💰 Precio estimado:</span>
+                    <span id="precioTotalDisplay" style="font-size:1.8rem; font-weight:700; color:#4a1c2a;">$0</span>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title"><span>📅</span> Agenda tu cita</div>
+
+                <div class="bank-info">
+                    <h4>🏦 Deposita tu anticipo (10%)</h4>
+                    <p><strong>Banco:</strong> Pichincha</p>
+                    <p><strong>Cuenta de ahorro transaccional:</strong> <span class="highlight">2210376131</span></p>
+                    <p><strong>CI / Titular:</strong> <span class="highlight">2450120890</span></p>
+                    <p style="margin-top:0.3rem; font-size:0.8rem; color:#4a1c2a; font-weight:500;">💡 El anticipo es el 10% del precio total. El saldo restante se cancela el día de la cita.</p>
+                </div>
+
+                <div class="grid-2col">
+                    <div>
+                        <h3 style="font-weight:600; color:#4a1c2a; margin-bottom:0.5rem; font-size:0.95rem;">📆 Fecha</h3>
+                        <div id="calendar-container">
+                            <div class="calendar-nav">
+                                <button id="prevMonthBtn">◀</button>
+                                <span class="month-label" id="monthLabel">Enero 2025</span>
+                                <button id="nextMonthBtn">▶</button>
+                            </div>
+                            <div class="calendar-grid" id="calendarGrid"></div>
+                        </div>
+                        <div style="margin-top:0.3rem; font-size:0.75rem; color:#5e4a42;">
+                            <span style="display:inline-block; width:12px; height:12px; background:#dde8d5; border-radius:4px;"></span> Disponible
+                            <span style="display:inline-block; width:12px; height:12px; background:#e0d6cf; border-radius:4px; margin-left:0.6rem;"></span> Ocupado
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="font-weight:600; color:#4a1c2a; margin-bottom:0.5rem; font-size:0.95rem;">🕒 Horarios (cada 2h)</h3>
+                        <div class="hours-container" id="hoursContainer"></div>
+                        <div style="margin-top:1rem;">
+                            <div class="form-group">
+                                <label>👤 Nombre de la clienta</label>
+                                <input type="text" id="clienteNombre" placeholder="Ej: María Pérez" />
+                            </div>
+                            <div class="form-group">
+                                <label>📋 Servicio(s) seleccionado(s)</label>
+                                <input type="text" id="servicioResumen" placeholder="Se actualiza automáticamente" readonly />
+                            </div>
+                            <div style="display:flex; gap:0.8rem; flex-wrap:wrap;">
+                                <div class="form-group" style="flex:1;">
+                                    <label>📅 Fecha</label>
+                                    <input type="text" id="fechaSeleccionada" readonly placeholder="Elige una fecha" />
+                                </div>
+                                <div class="form-group" style="flex:1;">
+                                    <label>🕒 Hora</label>
+                                    <input type="text" id="horaSeleccionada" readonly placeholder="Elige una hora" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>📎 Comprobante de anticipo (captura de pantalla)</label>
+                                <div class="file-upload" id="fileUploadArea">
+                                    <p style="font-size:0.85rem;">📤 Haz clic para subir tu comprobante</p>
+                                    <input type="file" id="comprobanteInput" accept="image/*" />
+                                    <img id="comprobantePreview" class="preview" style="display:none;" alt="Comprobante" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="confirm-box" id="confirmacionTexto">
+                    <span class="text-muted" style="font-size:0.85rem;">Selecciona fecha y hora para ver el resumen</span>
+                </div>
+
+                <div style="display:flex; flex-wrap:wrap; gap:0.8rem; justify-content:center;">
+                    <button class="whatsapp-btn" id="confirmarWhatsappBtn">📲 Confirmar cita</button>
+                    <button class="btn btn-outline" id="limpiarTodoBtn" style="font-size:0.85rem;">🗑️ Limpiar todo</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ===== MODO ADMIN ===== -->
+        <div id="modoAdmin" class="modo-admin">
+
+            <div class="section">
+                <div class="section-title"><span>📈</span> Resumen de ganancias</div>
+                <div class="stats-grid" id="statsGrid">
+                    <div class="stat-card dark">
+                        <span class="icon">📋</span>
+                        <span class="number" id="totalCitas">0</span>
+                        <span class="label">Total de citas</span>
+                    </div>
+                    <div class="stat-card gold">
+                        <span class="icon">💰</span>
+                        <span class="number" id="totalGanancias">$0</span>
+                        <span class="label">Ganancias totales</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="icon">💵</span>
+                        <span class="number" id="totalAnticipos">$0</span>
+                        <span class="label">Total en anticipos (10%)</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="icon">📅</span>
+                        <span class="number" id="citasPendientes">0</span>
+                        <span class="label">Citas pendientes</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title"><span>📋</span> Todas las citas agendadas</div>
+
+                <div class="actions-bar">
+                    <span style="color:#6b5a52; font-weight:500; font-size:0.85rem;" id="infoCitas">Mostrando 0 citas</span>
+                    <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
+                        <button class="btn btn-outline" id="refrescarBtn" style="font-size:0.8rem; padding:0.4rem 1.2rem;">🔄 Refrescar</button>
+                        <button class="btn-danger-large" id="eliminarTodasBtn" style="font-size:0.8rem; padding:0.4rem 1.2rem;">🗑️ Eliminar todas</button>
+                    </div>
+                </div>
+
+                <div class="table-container" id="tablaContainer">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Fecha</th>
+                                <th>Hora</th>
+                                <th>Cliente</th>
+                                <th>Servicios</th>
+                                <th>Precio</th>
+                                <th>Anticipo</th>
+                                <th>Comprobante</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaCitasBody">
+                            <tr>
+                                <td colspan="9">
+                                    <div class="empty-state">
+                                        <span class="emoji">📭</span>
+                                        <p>No hay citas agendadas aún</p>
+                                        <span style="font-size:0.8rem; color:#b8956a;">Las citas aparecerán aquí cuando las clientas reserven</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ===== BOTÓN ADMIN CON CONTRASEÑA ===== -->
+    <div class="admin-toggle">
+        <button id="toggleAdminBtn">👩‍💼 Admin</button>
+    </div>
+
+    <!-- ===== FACTURA MODAL ===== -->
+    <div class="factura-overlay" id="facturaOverlay">
+        <div class="factura" id="facturaContent">
+            <div class="factura-header">
+                <h2>Belinda <span>Beauty Nails</span></h2>
+                <div class="factura-num" id="facturaNum">FACTURA #0001</div>
+            </div>
+            <div class="factura-body" id="facturaBody">
+                <div class="row"><span class="label">Cliente</span><span class="value" id="facturaCliente">—</span></div>
+                <div class="row"><span class="label">Fecha</span><span class="value" id="facturaFecha">—</span></div>
+                <div class="row"><span class="label">Hora</span><span class="value" id="facturaHora">—</span></div>
+                <div class="row"><span class="label">Servicios</span><span class="value" id="facturaServicios" style="font-size:0.8rem;">—</span></div>
+                <div class="row total"><span class="label">Total</span><span class="value" id="facturaTotal">$0</span></div>
+                <div class="row anticipo"><span class="label">💰 Anticipo (10%)</span><span class="value" id="facturaAnticipo">$0</span></div>
+                <div id="facturaComprobanteContainer" style="margin:0.3rem 0; text-align:center;">
+                    <p style="font-weight:600; color:#4a1c2a; font-size:0.8rem;">📎 Comprobante de anticipo:</p>
+                    <img id="facturaComprobanteImg" class="comprobante-img" style="display:none;" alt="Comprobante" />
+                </div>
+            </div>
+            <div class="factura-footer">
+                <div class="tagline">✨ Menos prisa, más perfección ✨</div>
+                <p style="margin-top:0.2rem;">¡Gracias por tu preferencia! 💅</p>
+            </div>
+            <div class="factura-loading" id="facturaLoading">⏳ Generando imagen...</div>
+            <button class="factura-foto-btn" id="facturaFotoBtn">📸 Descargar factura como foto</button>
+            <button class="factura-close-btn" id="facturaCloseBtn">✕ Cerrar factura</button>
+        </div>
+    </div>
+
+    <!-- ===== MODAL COMPROBANTE ===== -->
+    <div class="modal-overlay" id="modalComprobante">
+        <div class="modal-content">
+            <h3>📎 Comprobante de anticipo</h3>
+            <img id="modalImg" src="" alt="Comprobante" />
+            <p style="text-align:center; margin-top:0.3rem; color:#6b5a52; font-size:0.85rem;" id="modalInfo">Cliente: —</p>
+            <button class="close-btn" id="modalCloseBtn">✕ Cerrar</button>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // ============================================================
+            // CONFIGURACIÓN
+            // ============================================================
+            const MI_NUMERO = "593998915860";
+            const ADMIN_PASSWORD = "Bazurtovera11";
+            let facturaCounter = 0;
+            let modoAdminActivo = false;
+
+            // ============================================================
+            // DATOS DE SERVICIOS
+            // ============================================================
+            const tecnicas = [
+                { id: 'acrilico', nombre: 'Acrilico', emoji: '💎', precios: [0, 18, 20, 23, 26, 30, 34, 38, 42] },
+                { id: 'gel', nombre: 'Sistema en Gel', emoji: '💅', precios: [0, 12, 15, 18, 21, 24, 27, 30, 33] },
+            ];
+
+            const sistemasGel = [
+                { id: 'semi', nombre: 'Gel semipermanente', precio: 12 },
+                { id: 'rubber', nombre: 'Rubber Gel (nivelacion)', precio: 18 },
+                { id: 'soft', nombre: 'Soft Gel (press on)', precio: 20 },
+                { id: 'builder', nombre: 'Builder Gel', precio: 25 },
+                { id: 'dual', nombre: 'Dual System / Polygel', precio: 28 },
+            ];
+
+            const decoraciones = [
+                { id: 'espejo', nombre: 'Espejo', precio: 1 },
+                { id: 'aurora', nombre: 'Aurora', precio: 1 },
+                { id: 'azucar', nombre: 'Azucar', precio: 1 },
+                { id: 'sueter', nombre: 'Sueter', precio: 1 },
+                { id: 'perla', nombre: 'Perla', precio: 1 },
+                { id: 'glitter', nombre: 'Glitter', precio: 1 },
+                { id: 'carey', nombre: 'Carey', precio: 1 },
+                { id: 'blooming', nombre: 'Blooming', precio: 1 },
+                { id: 'frances', nombre: 'Frances', precio: 1 },
+                { id: 'nailart', nombre: 'Nail art simple', precio: 1 },
+                { id: 'babyglam', nombre: 'Baby glam', precio: 1 },
+                { id: 'babygliter', nombre: 'Baby gliter', precio: 1 },
+                { id: 'ojogato', nombre: 'Ojo de gato', precio: 2 },
+                { id: 'relieve', nombre: 'Relieve', precio: 2 },
+                { id: 'encapsulado', nombre: 'Encapsulado', precio: 2 },
+                { id: 'sticker', nombre: 'Sticker', precio: 2 },
+                { id: 'hojaoro', nombre: 'Hoja de oro', precio: 2 },
+                { id: 'babyboomer', nombre: 'Baby boomer', precio: 2 },
+                { id: '3d', nombre: '3D', precio: 3 },
+                { id: 'dijes', nombre: 'Dijes', precio: 3 },
+                { id: 'cristales_ch', nombre: 'Cristales Ch (hasta 5)', precio: 5 },
+                { id: 'cristales_m', nombre: 'Cristales M (hasta 10)', precio: 7 },
+                { id: 'cristales_g', nombre: 'Cristales G (hasta 15)', precio: 12 },
+                { id: 'cristal_completo_ch', nombre: 'Cristal completo Ch (L1-3)', precio: 15 },
+                { id: 'cristal_completo_m', nombre: 'Cristal completo M (L4-6)', precio: 22 },
+                { id: 'cristal_completo_g', nombre: 'Cristal completo G (L7-8)', precio: 28 },
+            ];
+
+            const puntas = [
+                { id: 'cuadrada', nombre: 'Cuadrada',
+                    svg: '<svg viewBox="0 0 40 60"><rect x="5" y="5" width="30" height="50" rx="2" fill="#D9C5A5" stroke="#5C1E2E" stroke-width="1.5"/></svg>' },
+                { id: 'almendra', nombre: 'Almendra',
+                    svg: '<svg viewBox="0 0 40 60"><ellipse cx="20" cy="35" rx="14" ry="22" fill="#D9C5A5" stroke="#5C1E2E" stroke-width="1.5"/><ellipse cx="20" cy="35" rx="14" ry="22" fill="none" stroke="#C9A86A" stroke-width="0.5"/></svg>' },
+                { id: 'coffin', nombre: 'Coffin',
+                    svg: '<svg viewBox="0 0 40 60"><rect x="6" y="6" width="28" height="44" rx="4" fill="#D9C5A5" stroke="#5C1E2E" stroke-width="1.5"/><rect x="10" y="6" width="20" height="4" fill="#C9A86A" opacity="0.4"/></svg>' },
+                { id: 'stiletto', nombre: 'Stiletto',
+                    svg: '<svg viewBox="0 0 40 60"><polygon points="20,5 35,55 5,55" fill="#D9C5A5" stroke="#5C1E2E" stroke-width="1.5"/><polygon points="20,5 35,55 5,55" fill="none" stroke="#C9A86A" stroke-width="0.5"/></svg>' },
+            ];
+
+            // ============================================================
+            // ESTADO
+            // ============================================================
+            let state = {
+                tecnicaSeleccionada: 'acrilico',
+                largo: 3,
+                puntaSeleccionada: 'cuadrada',
+                gelSeleccionado: 'semi',
+                decoraciones: {},
+                tonosExtra: 0,
+                cambioForma: false,
+                retiroOpcion: '0',
+                fechaSeleccionada: null,
+                horaSeleccionada: null,
+                clienteNombre: '',
+                comprobanteData: null,
+                citas: [],
+                currentMonth: new Date().getMonth(),
+                currentYear: new Date().getFullYear(),
+            };
+
+            // ============================================================
+            // LOCAL STORAGE
+            // ============================================================
+            function loadState() {
+                try {
+                    const saved = localStorage.getItem('belindaData');
+                    if (saved) {
+                        const parsed = JSON.parse(saved);
+                        state.citas = parsed.citas || [];
+                        if (parsed.decoraciones) state.decoraciones = parsed.decoraciones;
+                        if (parsed.facturaCounter) facturaCounter = parsed.facturaCounter;
+                    }
+                } catch (e) {}
+            }
+
+            function saveState() {
+                try {
+                    localStorage.setItem('belindaData', JSON.stringify({
+                        citas: state.citas,
+                        decoraciones: state.decoraciones,
+                        facturaCounter: facturaCounter
+                    }));
+                } catch (e) {}
+            }
+            loadState();
+
+            // ============================================================
+            // FUNCIONES DE PRECIO
+            // ============================================================
+            function getPrecioTecnica(tecnicaId, largo) {
+                const tech = tecnicas.find(t => t.id === tecnicaId);
+                if (!tech) return 0;
+                return tech.precios[largo] || 0;
+            }
+
+            function getPrecioGel(id) {
+                const g = sistemasGel.find(s => s.id === id);
+                return g ? g.precio : 0;
+            }
+
+            function getPrecioDecoracion(id) {
+                const d = decoraciones.find(de => de.id === id);
+                return d ? d.precio : 0;
+            }
+
+            function calcularPrecioTotal() {
+                let total = getPrecioTecnica(state.tecnicaSeleccionada, state.largo);
+                total += getPrecioGel(state.gelSeleccionado);
+                for (const [id, cant] of Object.entries(state.decoraciones)) {
+                    if (cant > 0) total += getPrecioDecoracion(id) * cant;
+                }
+                total += state.tonosExtra * 2;
+                if (state.cambioForma) total += 3;
+                const ret = state.retiroOpcion;
+                if (ret === 'acrilico_retiro') total += 2 * 5;
+                else if (ret === 'gel_retiro') total += 1 * 5;
+                else if (ret === 'acrilico_repos') total += 4 * 5;
+                else if (ret === 'gel_repos') total += 3 * 5;
+                return total;
+            }
+
+            function getNombreServicioResumen() {
+                const tec = tecnicas.find(t => t.id === state.tecnicaSeleccionada);
+                const gel = sistemasGel.find(g => g.id === state.gelSeleccionado);
+                const decos = Object.entries(state.decoraciones)
+                    .filter(([id, cant]) => cant > 0)
+                    .map(([id, cant]) => {
+                        const d = decoraciones.find(de => de.id === id);
+                        return `${d?.nombre || id} x${cant}`;
+                    })
+                    .join(', ');
+                return `${tec?.nombre || ''} L${state.largo} · ${gel?.nombre || ''}${decos ? ' + ' + decos : ''}`;
+            }
+
+            // ============================================================
+            // RENDER CLIENTE
+            // ============================================================
+            function renderTecnicas() {
+                const container = document.getElementById('tecnicas-container');
+                container.innerHTML = tecnicas.map(t => `
+                            <div class="tech-option ${state.tecnicaSeleccionada === t.id ? 'selected' : ''}" data-id="${t.id}">
+                              <span class="emoji-big">${t.emoji}</span>
+                              <div class="info"><span class="name">${t.nombre}</span></div>
+                            </div>
+                          `).join('');
+                container.querySelectorAll('.tech-option').forEach(el => {
+                    el.addEventListener('click', function() {
+                        state.tecnicaSeleccionada = this.dataset.id;
+                        renderCliente();
+                    });
+                });
+            }
+
+            function renderLargo() {
+                const slider = document.getElementById('largoSlider');
+                const display = document.getElementById('largoValue');
+                const priceDisplay = document.getElementById('largoPriceDisplay');
+                slider.value = state.largo;
+                display.textContent = state.largo;
+                const precio = getPrecioTecnica(state.tecnicaSeleccionada, state.largo);
+                priceDisplay.textContent = `+ $${precio}`;
+                slider.oninput = function() {
+                    state.largo = parseInt(this.value);
+                    renderLargo();
+                    renderPrecioTotal();
+                    actualizarResumen();
+                    saveState();
+                };
+            }
+
+            function renderPuntas() {
+                const container = document.getElementById('tips-container');
+                container.innerHTML = puntas.map(p => `
+                            <div class="tip-card ${state.puntaSeleccionada === p.id ? 'selected' : ''}" data-id="${p.id}">
+                              ${p.svg}
+                              <div class="label">${p.nombre}</div>
+                            </div>
+                          `).join('');
+                container.querySelectorAll('.tip-card').forEach(el => {
+                    el.addEventListener('click', function() {
+                        state.puntaSeleccionada = this.dataset.id;
+                        renderPuntas();
+                        saveState();
+                    });
+                });
+            }
+
+            function renderGel() {
+                const container = document.getElementById('gel-container');
+                container.innerHTML = sistemasGel.map(g => `
+                            <div class="tech-option ${state.gelSeleccionado === g.id ? 'selected' : ''}" data-id="${g.id}" style="padding:0.3rem 0.6rem;">
+                              <div class="info"><span class="name">${g.nombre}</span> <span class="price">+$${g.precio}</span></div>
+                            </div>
+                          `).join('');
+                container.querySelectorAll('.tech-option').forEach(el => {
+                    el.addEventListener('click', function() {
+                        state.gelSeleccionado = this.dataset.id;
+                        renderCliente();
+                        saveState();
+                    });
+                });
+            }
+
+            function renderDecoraciones() {
+                const container = document.getElementById('deco-container');
+                container.innerHTML = decoraciones.map(d => {
+                    const cant = state.decoraciones[d.id] || 0;
+                    const subtotal = cant * d.precio;
+                    return `
+                              <div class="deco-item" data-id="${d.id}">
+                                <span class="info">${d.nombre}</span>
+                                <span class="price">$${d.precio}/u</span>
+                                <div class="counter">
+                                  <button class="deco-minus" data-id="${d.id}">−</button>
+                                  <span>${cant}</span>
+                                  <button class="deco-plus" data-id="${d.id}">+</button>
+                                </div>
+                                <span style="font-size:0.7rem; color:#4a1c2a; min-width:30px; font-weight:600;">$${subtotal}</span>
+                              </div>
+                            `;
+                }).join('');
+
+                container.querySelectorAll('.deco-plus').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const id = this.dataset.id;
+                        if (!state.decoraciones[id]) state.decoraciones[id] = 0;
+                        if (state.decoraciones[id] < 10) state.decoraciones[id]++;
+                        else alert('Maximo 10 unias por decoracion');
+                        renderDecoraciones();
+                        renderPrecioTotal();
+                        actualizarResumen();
+                        saveState();
+                    });
+                });
+                container.querySelectorAll('.deco-minus').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const id = this.dataset.id;
+                        if (!state.decoraciones[id]) state.decoraciones[id] = 0;
+                        if (state.decoraciones[id] > 0) state.decoraciones[id]--;
+                        renderDecoraciones();
+                        renderPrecioTotal();
+                        actualizarResumen();
+                        saveState();
+                    });
+                });
+            }
+
+            function renderPrecioTotal() {
+                const total = calcularPrecioTotal();
+                document.getElementById('precioTotalDisplay').textContent = '$' + total;
+                document.getElementById('servicioResumen').value = getNombreServicioResumen() + ` ($${total})`;
+            }
+
+            function renderCalendar() {
+                const grid = document.getElementById('calendarGrid');
+                const month = state.currentMonth;
+                const year = state.currentYear;
+                const firstDay = new Date(year, month, 1).getDay();
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+                const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre',
+                    'Octubre', 'Noviembre', 'Diciembre'
+                ];
+                document.getElementById('monthLabel').textContent = `${monthNames[month]} ${year}`;
+
+                let html = '';
+                const diasSemana = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
+                diasSemana.forEach(d => html += `<div class="day-name">${d}</div>`);
+
+                for (let i = 0; i < firstDay; i++) html += '<div></div>';
+                for (let d = 1; d <= daysInMonth; d++) {
+                    const dateObj = new Date(year, month, d);
+                    const diaSemana = dateObj.getDay();
+                    let disabled = false;
+                    if (diaSemana === 0) disabled = true;
+                    const fechaStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+                    const citasDia = state.citas.filter(c => c.fecha === fechaStr);
+                    const todasOcupadas = citasDia.length >= 7;
+                    const selected = (state.fechaSeleccionada === fechaStr);
+                    let cls = 'day-cell';
+                    if (disabled || todasOcupadas) cls += ' disabled';
+                    if (selected) cls += ' selected';
+                    if (!disabled && !todasOcupadas) cls += ' available';
+                    html += `<div class="${cls}" data-fecha="${fechaStr}">${d}</div>`;
+                }
+                grid.innerHTML = html;
+                grid.querySelectorAll('.day-cell.available, .day-cell.selected').forEach(el => {
+                    el.addEventListener('click', function() {
+                        if (this.classList.contains('disabled')) return;
+                        state.fechaSeleccionada = this.dataset.fecha;
+                        document.getElementById('fechaSeleccionada').value = state.fechaSeleccionada;
+                        state.horaSeleccionada = null;
+                        document.getElementById('horaSeleccionada').value = '';
+                        renderCalendar();
+                        renderHoras();
+                        actualizarResumen();
+                        saveState();
+                    });
+                });
+
+                document.getElementById('prevMonthBtn').onclick = function() {
+                    if (state.currentMonth === 0) { state.currentMonth = 11;
+                        state.currentYear--; } else state.currentMonth--;
+                    state.fechaSeleccionada = null;
+                    document.getElementById('fechaSeleccionada').value = '';
+                    state.horaSeleccionada = null;
+                    document.getElementById('horaSeleccionada').value = '';
+                    renderCalendar();
+                    renderHoras();
+                    actualizarResumen();
+                };
+                document.getElementById('nextMonthBtn').onclick = function() {
+                    if (state.currentMonth === 11) { state.currentMonth = 0;
+                        state.currentYear++; } else state.currentMonth++;
+                    state.fechaSeleccionada = null;
+                    document.getElementById('fechaSeleccionada').value = '';
+                    state.horaSeleccionada = null;
+                    document.getElementById('horaSeleccionada').value = '';
+                    renderCalendar();
+                    renderHoras();
+                    actualizarResumen();
+                };
+            }
+
+            function renderHoras() {
+                const container = document.getElementById('hoursContainer');
+                const horas = [];
+                for (let h = 7; h <= 19; h += 2) {
+                    const ampm = h >= 12 ? 'pm' : 'am';
+                    const h12 = h > 12 ? h - 12 : h;
+                    horas.push(`${h12}:00${ampm}`);
+                }
+                const diaSemana = state.fechaSeleccionada ? new Date(state.fechaSeleccionada).getDay() : -1;
+                let horasDisponibles = [...horas];
+                if (diaSemana === 0) horasDisponibles = [];
+
+                const citasDia = state.citas.filter(c => c.fecha === state.fechaSeleccionada);
+                const ocupadas = citasDia.map(c => c.hora);
+
+                container.innerHTML = horasDisponibles.map(h => {
+                    const ocupada = ocupadas.includes(h);
+                    const selected = state.horaSeleccionada === h;
+                    let cls = 'hour-btn';
+                    if (ocupada) cls += ' booked';
+                    if (selected) cls += ' selected';
+                    return `<div class="${cls}" data-hora="${h}">${h}</div>`;
+                }).join('');
+
+                container.querySelectorAll('.hour-btn:not(.booked)').forEach(el => {
+                    el.addEventListener('click', function() {
+                        state.horaSeleccionada = this.dataset.hora;
+                        document.getElementById('horaSeleccionada').value = state.horaSeleccionada;
+                        renderHoras();
+                        actualizarResumen();
+                        saveState();
+                    });
+                });
+            }
+
+            function actualizarResumen() {
+                const fecha = state.fechaSeleccionada || 'No seleccionada';
+                const hora = state.horaSeleccionada || 'No seleccionada';
+                const cliente = document.getElementById('clienteNombre').value || 'Sin nombre';
+                const precio = calcularPrecioTotal();
+                const anticipo = Math.round(precio * 0.1);
+                const servicios = getNombreServicioResumen();
+                document.getElementById('confirmacionTexto').innerHTML = `
+                            <p style="font-size:0.85rem;"><strong>👤 Cliente:</strong> ${cliente}</p>
+                            <p style="font-size:0.85rem;"><strong>💅 Servicios:</strong> ${servicios}</p>
+                            <p style="font-size:0.85rem;"><strong>📅 Fecha:</strong> ${fecha} &nbsp;|&nbsp; <strong>🕒 Hora:</strong> ${hora}</p>
+                            <p style="font-size:0.85rem;"><strong>💰 Precio total:</strong> $${precio} &nbsp;|&nbsp; <strong>💵 Anticipo (10%):</strong> $${anticipo}</p>
+                          `;
+            }
+
+            function renderCliente() {
+                renderTecnicas();
+                renderLargo();
+                renderPuntas();
+                renderGel();
+                renderDecoraciones();
+                renderPrecioTotal();
+                renderCalendar();
+                renderHoras();
+                actualizarResumen();
+            }
+
+            // ============================================================
+            // CONFIRMAR CITA
+            // ============================================================
+            function confirmarCita() {
+                const cliente = document.getElementById('clienteNombre').value.trim();
+                if (!cliente) { alert('Por favor ingresa el nombre de la clienta.'); return; }
+                if (!state.fechaSeleccionada) { alert('Selecciona una fecha.'); return; }
+                if (!state.horaSeleccionada) { alert('Selecciona una hora.'); return; }
+                if (!state.comprobanteData) { alert('Por favor sube el comprobante de pago del anticipo.'); return; }
+
+                const precio = calcularPrecioTotal();
+                const anticipo = Math.round(precio * 0.1);
+                const servicios = getNombreServicioResumen();
+
+                const existe = state.citas.some(c => c.fecha === state.fechaSeleccionada && c.hora === state
+                    .horaSeleccionada);
+                if (existe) { alert('Esta hora ya esta ocupada. Elige otra.'); return; }
+
+                state.citas.push({
+                    cliente,
+                    fecha: state.fechaSeleccionada,
+                    hora: state.horaSeleccionada,
+                    servicios,
+                    precio,
+                    anticipo,
+                    comprobante: state.comprobanteData,
+                    tecnica: tecnicas.find(t => t.id === state.tecnicaSeleccionada)?.nombre || '',
+                    fechaRegistro: new Date().toISOString()
+                });
+                saveState();
+
+                mostrarFactura(cliente, state.fechaSeleccionada, state.horaSeleccionada, servicios, precio, anticipo, state
+                    .comprobanteData);
+
+                enviarWhatsApp(cliente, state.fechaSeleccionada, state.horaSeleccionada, servicios, precio, anticipo);
+
+                document.getElementById('confirmacionTexto').innerHTML = `
+                            <p style="color:#4a1c2a; font-weight:700; font-size:0.95rem;">✅ ¡Cita agendada con éxito!</p>
+                            <p style="font-size:0.85rem;"><strong>👤 Cliente:</strong> ${cliente}</p>
+                            <p style="font-size:0.85rem;"><strong>💅 Servicios:</strong> ${servicios}</p>
+                            <p style="font-size:0.85rem;"><strong>📅 Fecha:</strong> ${state.fechaSeleccionada} &nbsp;|&nbsp; <strong>🕒 Hora:</strong> ${state.horaSeleccionada}</p>
+                            <p style="font-size:0.85rem;"><strong>💰 Precio:</strong> $${precio} &nbsp;|&nbsp; <strong>💵 Anticipo pagado:</strong> $${anticipo}</p>
+                            <div class="toast">📄 Factura generada con comprobante</div>
+                          `;
+
+                state.horaSeleccionada = null;
+                document.getElementById('horaSeleccionada').value = '';
+                renderHoras();
+                renderCalendar();
+
+                if (modoAdminActivo) {
+                    renderAdmin();
+                }
+            }
+
+            // ============================================================
+            // ENVIAR A WHATSAPP
+            // ============================================================
+            function enviarWhatsApp(cliente, fecha, hora, servicios, precio, anticipo) {
+                const mensaje = `🟢 *NUEVA CITA AGENDADA* 🟢
+
+        👤 *Cliente:* ${cliente}
+        📅 *Fecha:* ${fecha}
+        🕒 *Hora:* ${hora}
+        💅 *Servicios:* ${servicios}
+        💰 *Precio total:* $${precio}
+        💵 *Anticipo pagado (10%):* $${anticipo}
+
+        📎 *Comprobante de pago adjunto*
+
+        ✨ Belinda Beauty Nails ✨`;
+
+                const url = `https://wa.me/${MI_NUMERO}?text=${encodeURIComponent(mensaje)}`;
+                window.open(url, '_blank');
+            }
+
+            // ============================================================
+            // FACTURA
+            // ============================================================
+            function mostrarFactura(cliente, fecha, hora, servicios, precio, anticipo, comprobanteData) {
+                facturaCounter++;
+                saveState();
+
+                const num = String(facturaCounter).padStart(4, '0');
+                document.getElementById('facturaNum').textContent = `FACTURA #${num}`;
+                document.getElementById('facturaCliente').textContent = cliente;
+                document.getElementById('facturaFecha').textContent = fecha;
+                document.getElementById('facturaHora').textContent = hora;
+                document.getElementById('facturaServicios').textContent = servicios;
+                document.getElementById('facturaTotal').textContent = `$${precio}`;
+                document.getElementById('facturaAnticipo').textContent = `$${anticipo}`;
+
+                const compImg = document.getElementById('facturaComprobanteImg');
+                if (comprobanteData) {
+                    compImg.src = comprobanteData;
+                    compImg.style.display = 'block';
+                } else {
+                    compImg.style.display = 'none';
+                }
+
+                document.getElementById('facturaOverlay').classList.add('active');
+            }
+
+            function compartirFacturaComoFoto() {
+                const loading = document.getElementById('facturaLoading');
+                loading.classList.add('active');
+
+                const facturaElement = document.getElementById('facturaContent');
+
+                html2canvas(facturaElement, {
+                    scale: 2,
+                    backgroundColor: '#ffffff',
+                    borderRadius: '1.8rem',
+                    useCORS: true,
+                    logging: false
+                }).then(canvas => {
+                    loading.classList.remove('active');
+                    const link = document.createElement('a');
+                    link.download =
+                        `factura_${document.getElementById('facturaNum').textContent.replace('#', '')}.png`;
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                    setTimeout(() => {
+                        document.getElementById('facturaOverlay').classList.remove('active');
+                    }, 500);
+                }).catch(error => {
+                    loading.classList.remove('active');
+                    alert('Error al generar la imagen. Intenta de nuevo.');
+                    console.error('Error:', error);
+                });
+            }
+
+            // ============================================================
+            // RENDER ADMIN
+            // ============================================================
+            function renderAdmin() {
+                const citas = state.citas;
+
+                const total = citas.length;
+                const ganancias = citas.reduce((sum, c) => sum + (c.precio || 0), 0);
+                const anticipos = citas.reduce((sum, c) => sum + (c.anticipo || 0), 0);
+
+                document.getElementById('totalCitas').textContent = total;
+                document.getElementById('totalGanancias').textContent = '$' + ganancias;
+                document.getElementById('totalAnticipos').textContent = '$' + anticipos;
+                document.getElementById('citasPendientes').textContent = total;
+                document.getElementById('infoCitas').textContent = `Mostrando ${total} citas`;
+
+                const tbody = document.getElementById('tablaCitasBody');
+
+                if (citas.length === 0) {
+                    tbody.innerHTML = `
+                              <tr>
+                                <td colspan="9">
+                                  <div class="empty-state">
+                                    <span class="emoji">📭</span>
+                                    <p>No hay citas agendadas aún</p>
+                                    <span style="font-size:0.8rem; color:#b8956a;">Las citas aparecerán aquí cuando las clientas reserven</span>
+                                  </div>
+                                </td>
+                              </tr>
+                            `;
+                    return;
+                }
+
+                const sorted = [...citas].sort((a, b) => {
+                    if (a.fecha < b.fecha) return -1;
+                    if (a.fecha > b.fecha) return 1;
+                    return a.hora.localeCompare(b.hora);
+                });
+
+                tbody.innerHTML = sorted.map((c, index) => {
+                    const num = index + 1;
+                    let servicios = c.servicios || '—';
+                    if (servicios.length > 35) servicios = servicios.substring(0, 35) + '…';
+
+                    let comprobanteHtml = '—';
+                    if (c.comprobante) {
+                        comprobanteHtml = `
+                                  <img src="${c.comprobante}" class="comprobante-thumb" alt="Comprobante" 
+                                       onclick="window.verComprobante('${c.comprobante}', '${c.cliente}')" 
+                                       title="Haz clic para ver comprobante" />
+                                `;
+                    }
+
+                    const precio = c.precio || 0;
+                    const anticipo = c.anticipo || Math.round(precio * 0.1);
+
+                    return `
+                              <tr>
+                                <td><strong>${num}</strong></td>
+                                <td>${c.fecha || '—'}</td>
+                                <td>${c.hora || '—'}</td>
+                                <td><strong>${c.cliente || '—'}</strong></td>
+                                <td style="font-size:0.7rem;">${servicios}</td>
+                                <td><strong>$${precio}</strong></td>
+                                <td><span class="badge badge-anticipo">$${anticipo}</span></td>
+                                <td>${comprobanteHtml}</td>
+                                <td>
+                                  <button class="btn-danger" onclick="window.eliminarCitaAdmin(${index})">🗑️</button>
+                                </td>
+                              </tr>
+                            `;
+                }).join('');
+            }
+
+            // ============================================================
+            // ACCIONES ADMIN
+            // ============================================================
+            window.eliminarCitaAdmin = function(index) {
+                const citas = state.citas;
+                if (index >= 0 && index < citas.length) {
+                    const cita = citas[index];
+                    if (confirm(`¿Eliminar la cita de ${cita.cliente} el ${cita.fecha} a las ${cita.hora}?`)) {
+                        citas.splice(index, 1);
+                        saveState();
+                        renderAdmin();
+                        renderCliente();
+                    }
+                }
+            };
+
+            function eliminarTodasAdmin() {
+                const citas = state.citas;
+                if (citas.length === 0) {
+                    alert('No hay citas para eliminar.');
+                    return;
+                }
+                if (confirm(`¿Eliminar TODAS las ${citas.length} citas? Esta acción no se puede deshacer.`)) {
+                    state.citas = [];
+                    saveState();
+                    renderAdmin();
+                    renderCliente();
+                }
+            }
+
+            window.verComprobante = function(comprobanteData, cliente) {
+                const modal = document.getElementById('modalComprobante');
+                const img = document.getElementById('modalImg');
+                const info = document.getElementById('modalInfo');
+
+                img.src = comprobanteData;
+                info.textContent = `Cliente: ${cliente}`;
+                modal.classList.add('active');
+            };
+
+            // ============================================================
+            // EVENTOS
+            // ============================================================
+            document.getElementById('facturaFotoBtn').addEventListener('click', compartirFacturaComoFoto);
+            document.getElementById('facturaCloseBtn').addEventListener('click', function() {
+                document.getElementById('facturaOverlay').classList.remove('active');
+            });
+            document.getElementById('facturaOverlay').addEventListener('click', function(e) {
+                if (e.target === this) this.classList.remove('active');
+            });
+
+            document.getElementById('modalCloseBtn').addEventListener('click', function() {
+                document.getElementById('modalComprobante').classList.remove('active');
+            });
+            document.getElementById('modalComprobante').addEventListener('click', function(e) {
+                if (e.target === this) this.classList.remove('active');
+            });
+
+            document.getElementById('tonosExtra').addEventListener('input', function() {
+                state.tonosExtra = parseInt(this.value) || 0;
+                renderPrecioTotal();
+                actualizarResumen();
+                saveState();
+            });
+            document.getElementById('cambioForma').addEventListener('change', function() {
+                state.cambioForma = this.checked;
+                renderPrecioTotal();
+                actualizarResumen();
+                saveState();
+            });
+            document.getElementById('retiroOpcion').addEventListener('change', function() {
+                state.retiroOpcion = this.value;
+                renderPrecioTotal();
+                actualizarResumen();
+                saveState();
+            });
+            document.getElementById('clienteNombre').addEventListener('input', actualizarResumen);
+
+            document.getElementById('fileUploadArea').addEventListener('click', function() {
+                document.getElementById('comprobanteInput').click();
+            });
+            document.getElementById('comprobanteInput').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        state.comprobanteData = event.target.result;
+                        const preview = document.getElementById('comprobantePreview');
+                        preview.src = state.comprobanteData;
+                        preview.style.display = 'block';
+                        document.querySelector('#fileUploadArea p').textContent = '✅ Comprobante subido';
+                        actualizarResumen();
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            document.getElementById('confirmarWhatsappBtn').addEventListener('click', confirmarCita);
+
+            document.getElementById('limpiarTodoBtn').addEventListener('click', function() {
+                if (confirm('¿Borrar todos los datos seleccionados?')) {
+                    state.decoraciones = {};
+                    state.tonosExtra = 0;
+                    state.cambioForma = false;
+                    state.retiroOpcion = '0';
+                    state.fechaSeleccionada = null;
+                    state.horaSeleccionada = null;
+                    state.comprobanteData = null;
+                    document.getElementById('clienteNombre').value = '';
+                    document.getElementById('fechaSeleccionada').value = '';
+                    document.getElementById('horaSeleccionada').value = '';
+                    document.getElementById('tonosExtra').value = 0;
+                    document.getElementById('cambioForma').checked = false;
+                    document.getElementById('retiroOpcion').value = '0';
+                    document.getElementById('comprobantePreview').style.display = 'none';
+                    document.querySelector('#fileUploadArea p').textContent = '📤 Haz clic para subir tu comprobante';
+                    saveState();
+                    renderCliente();
+                }
+            });
+
+            document.getElementById('refrescarBtn').addEventListener('click', function() {
+                renderAdmin();
+                this.textContent = '✅ Actualizado';
+                setTimeout(() => {
+                    this.textContent = '🔄 Refrescar';
+                }, 2000);
+            });
+            document.getElementById('eliminarTodasBtn').addEventListener('click', eliminarTodasAdmin);
+
+            // ============================================================
+            // CAMBIAR MODO CON CONTRASEÑA
+            // ============================================================
+            document.getElementById('toggleAdminBtn').addEventListener('click', function() {
+                const modoCliente = document.getElementById('modoCliente');
+                const modoAdmin = document.getElementById('modoAdmin');
+
+                if (!modoAdminActivo) {
+                    const password = prompt('🔒 Ingresa la contraseña de administradora:');
+                    if (password !== ADMIN_PASSWORD) {
+                        alert('❌ Contraseña incorrecta');
+                        return;
+                    }
+                }
+
+                modoAdminActivo = !modoAdminActivo;
+
+                if (modoAdminActivo) {
+                    modoCliente.classList.add('oculto');
+                    modoAdmin.classList.add('active');
+                    this.textContent = '👩‍💼 Cerrar Admin';
+                    this.classList.add('active');
+                    renderAdmin();
+                } else {
+                    modoCliente.classList.remove('oculto');
+                    modoAdmin.classList.remove('active');
+                    this.textContent = '👩‍💼 Admin';
+                    this.classList.remove('active');
+                }
+            });
+
+            // ============================================================
+            // INICIALIZAR
+            // ============================================================
+            renderCliente();
+
+            setInterval(() => {
+                if (modoAdminActivo) {
+                    renderAdmin();
+                }
+            }, 30000);
+
+            console.log('💅 Belinda Beauty Nails cargado');
+            console.log('🔒 Contraseña admin: Bazurtovera11');
+
+        })();
+    </script>
+
+</body>
+</html>
